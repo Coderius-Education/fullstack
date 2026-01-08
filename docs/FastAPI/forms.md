@@ -1,8 +1,8 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
-# Formulieren (Forms)
+# Input van gebruiker
 
 Tot nu toe hebben we alleen data *getoond* aan gebruikers. Maar hoe ontvangen we data *van* gebruikers? Dat doen we met HTML formulieren! In deze les leer je hoe je formulieren maakt en hoe je de data verwerkt in FastAPI.
 

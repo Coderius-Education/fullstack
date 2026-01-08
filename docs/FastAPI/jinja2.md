@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# HTML Templates met Jinja2
+# HTML in apart bestand
 
 Tot nu toe hebben we HTML als strings in onze Python code geschreven. Dit werkt, maar het is niet handig als je dynamische content wilt tonen (bijvoorbeeld de naam van een gebruiker, of een lijst met items). Daarom gaan we nu **Jinja2 templates** gebruiken!
 

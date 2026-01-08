@@ -1,8 +1,8 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
 
-# Database opslag met sqlitedict
+# Gegevens opslaan
 
 In de vorige les heb je geleerd hoe je formulieren maakt en data ontvangt. Maar die data verdwijnt zodra je de server herstart. In deze les leer je hoe je gebruikersdata **permanent** opslaat met `sqlitedict`.
 
