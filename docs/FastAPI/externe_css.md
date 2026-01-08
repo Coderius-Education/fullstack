@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Externe CSS bestanden
+# CSS in apart bestand
 
 In de vorige les hebben we CSS inline in onze HTML strings gezet. Dit werkt, maar het wordt al snel onoverzichtelijk. In deze les leren we hoe we externe CSS bestanden kunnen gebruiken en hoe we static files (zoals CSS, JavaScript, afbeeldingen) kunnen serveren met FastAPI.
 
