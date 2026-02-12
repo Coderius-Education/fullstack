@@ -94,6 +94,18 @@ const config: Config = {
           label: 'FastAPI',
         },
         {
+          type: 'doc',
+          docId: 'cheatsheet',
+          position: 'left',
+          label: 'Cheatsheet',
+        },
+        {
+          type: 'doc',
+          docId: 'troubleshooting',
+          position: 'left',
+          label: 'Er gaat iets mis',
+        },
+        {
           href: 'https://github.com/Coderius-Education/fullstack',
           label: 'GitHub',
           position: 'right',
