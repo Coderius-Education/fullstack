@@ -72,7 +72,7 @@ async def styled():
 ```
 
 :::danger Gaat er iets mis?
-Zie je de HTML als tekst (je ziet de tags `<h1>` etc.)? Dan mis je waarschijnlijk `response_class=HTMLResponse`. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Zie je de HTML als tekst (je ziet de tags `<h1>` etc.)? Dan mis je waarschijnlijk `response_class=HTMLResponse`. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

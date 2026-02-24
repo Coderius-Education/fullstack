@@ -52,7 +52,7 @@ De data zit in de request body — niet zichtbaar in de URL.
 **Vuistregel:** GET = "Geef me iets" / POST = "Hier is iets"
 
 :::danger Gaat er iets mis?
-Krijg je een **405 Method Not Allowed**? Dan stuur je waarschijnlijk een POST naar een GET endpoint of andersom. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Krijg je een **405 Method Not Allowed**? Dan stuur je waarschijnlijk een POST naar een GET endpoint of andersom. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

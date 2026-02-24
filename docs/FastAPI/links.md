@@ -62,7 +62,7 @@ Klik op "Ga naar Over Mij" → je gaat naar `/about`.
 Klik op "Terug naar Home" → je gaat naar `/`.
 
 :::danger Gaat er iets mis?
-Krijg je een 404 als je op een link klikt? Dan bestaat het endpoint waarschijnlijk niet in je `main.py`. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Krijg je een 404 als je op een link klikt? Dan bestaat het endpoint waarschijnlijk niet in je `main.py`. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

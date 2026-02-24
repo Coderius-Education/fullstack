@@ -66,7 +66,7 @@ async def home():
 Ga naar [http://127.0.0.1:8000](http://127.0.0.1:8000). Je ziet de HTML pagina met CSS styling!
 
 :::danger Gaat er iets mis?
-Krijg je een 404 of 500 error? Check of het pad in `FileResponse("...")` exact klopt en of het bestand echt op die plek staat. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Krijg je een 404 of 500 error? Check of het pad in `FileResponse("...")` exact klopt en of het bestand echt op die plek staat. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

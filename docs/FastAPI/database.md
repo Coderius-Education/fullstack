@@ -65,7 +65,7 @@ Een database slaat wijzigingen niet meteen op in het bestand. Met `db.commit()` 
 </details>
 
 :::danger Gaat er iets mis?
-Data verdwenen na herstarten? Dan ben je waarschijnlijk `db.commit()` vergeten. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Data verdwenen na herstarten? Dan ben je waarschijnlijk `db.commit()` vergeten. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

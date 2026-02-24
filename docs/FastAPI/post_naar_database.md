@@ -65,7 +65,7 @@ async def toon_naam():
 ```
 
 :::danger Gaat er iets mis?
-Data niet opgeslagen? Check of je `db.commit()` niet vergeet. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Data niet opgeslagen? Check of je `db.commit()` niet vergeet. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

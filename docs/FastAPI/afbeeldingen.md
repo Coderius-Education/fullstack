@@ -67,7 +67,7 @@ Afbeelding laadt niet? Controleer of:
 2. De bestandsnaam exact klopt (let op hoofdletters!)
 3. `app.mount("/static", ...)` in je code staat
 
-Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

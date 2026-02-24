@@ -82,7 +82,7 @@ async def mooi():
 Ga naar [http://127.0.0.1:8000/mooi](http://127.0.0.1:8000/mooi). De heading is blauw en de tekst grijs — de CSS uit het aparte bestand werkt!
 
 :::danger Gaat er iets mis?
-CSS werkt niet? Check of `app.mount("/static", ...)` in je code staat en of het pad in `<link>` klopt. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+CSS werkt niet? Check of `app.mount("/static", ...)` in je code staat en of het pad in `<link>` klopt. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten

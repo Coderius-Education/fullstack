@@ -96,7 +96,7 @@ Jinja2 in FastAPI heeft het `request` object nodig om te weten welke gebruiker d
 3. Je ziet een mooie HTML pagina: "Hallo [jouw naam]!"
 
 :::danger Gaat er iets mis?
-Krijg je een **TemplateNotFound** error? Check of je template in de `templates/` folder staat en of de bestandsnaam klopt. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+Krijg je een **TemplateNotFound** error? Check of je template in de `templates/` folder staat en of de bestandsnaam klopt. Bekijk de [troubleshooting pagina](/docs/troubleshooting) voor meer oplossingen.
 :::
 
 ## Opdrachten
