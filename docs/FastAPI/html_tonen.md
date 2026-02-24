@@ -71,6 +71,10 @@ async def styled():
     """
 ```
 
+:::danger Gaat er iets mis?
+Zie je de HTML als tekst (je ziet de tags `<h1>` etc.)? Dan mis je waarschijnlijk `response_class=HTMLResponse`. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - JSON of HTML?
@@ -84,23 +88,115 @@ async def test():
 **Vraag:** Zie je een heading of JSON?
 
 <details>
-<summary>Klik hier voor het antwoord</summary>
+<summary>Tip</summary>
+
+Kijk of er `response_class=HTMLResponse` staat. Wat doet FastAPI als dat er niet staat?
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
 
 Je ziet JSON: `{"titel": "<h1>Hallo</h1>"}`. Zonder `response_class=HTMLResponse` stuurt FastAPI altijd JSON terug.
 
 </details>
 
-### Opdracht 2: Make - Eigen pagina
+### Opdracht 2: Run
+
+Maak beide endpoints in je `main.py`: het `/pagina` endpoint en het `/styled` endpoint. Start de server en bezoek ze allebei. Werken ze zoals verwacht?
+
+### Opdracht 3: Investigate - Zonder HTMLResponse
+
+Wat gebeurt er als je `response_class=HTMLResponse` weghaalt bij het `/styled` endpoint? Probeer het uit!
+
+<details>
+<summary>Antwoord</summary>
+
+Zonder `response_class=HTMLResponse` stuurt FastAPI de string als **plain text** terug. Je ziet de HTML tags als tekst op je scherm in plaats van een opgemaakte pagina.
+
+</details>
+
+### Opdracht 4: Make - Eigen pagina
 
 Maak een endpoint `/profiel` dat een HTML pagina toont met:
 - Jouw naam als heading
 - Een paragraaf over jezelf
 - Een gekleurde heading via CSS
 
-### Opdracht 3: Make - Twee pagina's
+<details>
+<summary>Tip</summary>
+
+Gebruik `response_class=HTMLResponse` en een multi-line string met `"""`. Zet je CSS in een `<style>` tag in de `<head>`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+@app.get("/profiel", response_class=HTMLResponse)
+async def profiel():
+    return """
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Profiel</title>
+            <style>
+                h1 { color: purple; }
+            </style>
+        </head>
+        <body>
+            <h1>Jan</h1>
+            <p>Ik ben 16 en hou van programmeren.</p>
+        </body>
+    </html>
+    """
+```
+
+</details>
+
+### Opdracht 5: Make - Twee pagina's
 
 Maak twee endpoints (`/pagina1` en `/pagina2`) die elk een andere HTML pagina tonen. Voeg op elke pagina een link toe naar de andere:
 
 ```html
 <a href="/pagina2">Ga naar pagina 2</a>
 ```
+
+<details>
+<summary>Tip</summary>
+
+Maak twee aparte functies met `@app.get`. Gebruik `<a href="/pagina1">` en `<a href="/pagina2">` om de pagina's aan elkaar te linken.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+@app.get("/pagina1", response_class=HTMLResponse)
+async def pagina1():
+    return """
+    <!DOCTYPE html>
+    <html>
+        <body>
+            <h1>Pagina 1</h1>
+            <a href="/pagina2">Ga naar pagina 2</a>
+        </body>
+    </html>
+    """
+
+@app.get("/pagina2", response_class=HTMLResponse)
+async def pagina2():
+    return """
+    <!DOCTYPE html>
+    <html>
+        <body>
+            <h1>Pagina 2</h1>
+            <a href="/pagina1">Ga naar pagina 1</a>
+        </body>
+    </html>
+    """
+```
+
+</details>

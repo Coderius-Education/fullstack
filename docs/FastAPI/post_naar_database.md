@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 12
 ---
 
 # POST naar database
@@ -64,11 +64,22 @@ async def toon_naam():
     return {"naam": naam}
 ```
 
+:::danger Gaat er iets mis?
+Data niet opgeslagen? Check of je `db.commit()` niet vergeet. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - Overschrijven
 
 Je slaat eerst "Jan" op, dan "Sarah". Wat staat er in de database?
+
+<details>
+<summary>Tip</summary>
+
+Beide worden opgeslagen onder dezelfde key (`"laatste_naam"`). Wat gebeurt er als je twee keer dezelfde key gebruikt?
+
+</details>
 
 <details>
 <summary>Antwoord</summary>
@@ -77,11 +88,71 @@ Alleen "Sarah" — de nieuwe waarde overschrijft de oude bij dezelfde key.
 
 </details>
 
-### Opdracht 2: Make - Score opslaan
+### Opdracht 2: Run
+
+Maak het formulier en de endpoints uit het voorbeeld. Test of de naam echt bewaard blijft door de server te stoppen en opnieuw te starten.
+
+### Opdracht 3: Investigate - Dezelfde key
+
+Wat als twee gebruikers allebei hun naam opslaan via het formulier? Blijven beide namen bewaard?
+
+<details>
+<summary>Antwoord</summary>
+
+Nee! Beide namen worden opgeslagen onder `"laatste_naam"`, dus de tweede overschrijft de eerste. Om meerdere namen op te slaan heb je **unieke keys** nodig, bijvoorbeeld met `time.time()` (zie opdracht 5).
+
+</details>
+
+### Opdracht 4: Make - Score opslaan
 
 Maak een formulier met een number input voor een game score. Sla de score op in `scores.db` en maak een endpoint om de score te bekijken.
 
-### Opdracht 3: Make - Gastenboek
+<details>
+<summary>Tip</summary>
+
+Gebruik `<input type="number" name="score">` in je HTML en `score: int = Form(...)` in Python. Maak een apart GET endpoint dat `db.get("score", 0)` teruggeeft.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/pages/score_form.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Game Score</h1>
+        <form method="post" action="/score">
+            <input type="number" name="score" required>
+            <button type="submit">Opslaan</button>
+        </form>
+    </body>
+</html>
+```
+
+```python
+@app.get("/score")
+async def score_form():
+    return FileResponse("static/pages/score_form.html")
+
+@app.post("/score")
+async def score_opslaan(score: int = Form(...)):
+    with SqliteDict("scores.db") as db:
+        db["score"] = score
+        db.commit()
+    return {"bericht": f"Score {score} opgeslagen!"}
+
+@app.get("/toon_score")
+async def toon_score():
+    with SqliteDict("scores.db") as db:
+        score = db.get("score", 0)
+    return {"score": score}
+```
+
+</details>
+
+### Opdracht 5: Make - Gastenboek
 
 Maak een gastenboek met naam en bericht. Gebruik `time.time()` als unieke key zodat berichten niet overschreven worden:
 
@@ -91,3 +162,52 @@ import time
 key = f"bericht_{int(time.time())}"
 db[key] = {"naam": naam, "bericht": bericht}
 ```
+
+<details>
+<summary>Tip</summary>
+
+Je hebt twee `<input>` velden nodig (`name="naam"` en `name="bericht"`). Gebruik `time.time()` om een unieke key te genereren, zodat elk bericht apart wordt opgeslagen.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/pages/gastenboek_form.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Gastenboek</h1>
+        <form method="post" action="/gastenboek">
+            <input type="text" name="naam" placeholder="Je naam" required>
+            <input type="text" name="bericht" placeholder="Je bericht" required>
+            <button type="submit">Verstuur</button>
+        </form>
+    </body>
+</html>
+```
+
+```python
+import time
+
+@app.get("/gastenboek")
+async def gastenboek_form():
+    return FileResponse("static/pages/gastenboek_form.html")
+
+@app.post("/gastenboek")
+async def gastenboek_opslaan(naam: str = Form(...), bericht: str = Form(...)):
+    with SqliteDict("gastenboek.db") as db:
+        key = f"bericht_{int(time.time())}"
+        db[key] = {"naam": naam, "bericht": bericht}
+        db.commit()
+    return {"bericht": "Bedankt voor je bericht!"}
+
+@app.get("/berichten")
+async def berichten():
+    with SqliteDict("gastenboek.db") as db:
+        alle_berichten = [v for v in db.values()]
+    return {"berichten": alle_berichten}
+```
+
+</details>

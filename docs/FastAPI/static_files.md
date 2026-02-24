@@ -81,6 +81,10 @@ async def mooi():
 
 Ga naar [http://127.0.0.1:8000/mooi](http://127.0.0.1:8000/mooi). De heading is blauw en de tekst grijs — de CSS uit het aparte bestand werkt!
 
+:::danger Gaat er iets mis?
+CSS werkt niet? Check of `app.mount("/static", ...)` in je code staat en of het pad in `<link>` klopt. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - Wat gebeurt er?
@@ -100,16 +104,121 @@ async def pagina2():
 **Vraag:** Wat gebeurt er met pagina2 als je de CSS in `style.css` aanpast?
 
 <details>
-<summary>Klik hier voor het antwoord</summary>
+<summary>Tip</summary>
+
+Beide pagina's laden hetzelfde bestand. Wat betekent dat als je dat ene bestand aanpast?
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
 
 Pagina2 verandert ook! Beide pagina's laden hetzelfde CSS bestand. Als je dat bestand aanpast, veranderen alle pagina's die het gebruiken.
 
 </details>
 
-### Opdracht 2: Make - Eigen CSS
+### Opdracht 2: Run
+
+Maak de `static/css/style.css` en het `/mooi` endpoint uit het voorbeeld. Start de server en controleer of de styling werkt.
+
+### Opdracht 3: Investigate - Ander pad
+
+Wat gebeurt er als je `app.mount("/static", ...)` verandert naar `app.mount("/bestanden", ...)`? Laadt de CSS dan nog?
+
+<details>
+<summary>Antwoord</summary>
+
+Nee! De CSS laadt niet meer, want de `<link>` tag verwijst naar `/static/css/style.css`, maar dat pad bestaat niet meer. Je zou de link moeten aanpassen naar `/bestanden/css/style.css`.
+
+</details>
+
+### Opdracht 4: Make - Eigen CSS
 
 Maak een eigen `style.css` met minimaal 3 CSS regels en een endpoint dat deze CSS gebruikt.
 
-### Opdracht 3: Make - Twee CSS bestanden
+<details>
+<summary>Tip</summary>
+
+Maak een CSS bestand in `static/css/` en koppel het met `<link rel="stylesheet" href="/static/css/style.css">` in de `<head>` van je HTML.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/css/style.css`:
+```css
+h1 { color: darkblue; }
+p { font-size: 18px; }
+body { background-color: lightyellow; }
+```
+
+`main.py`:
+```python
+@app.get("/mijn_pagina", response_class=HTMLResponse)
+async def mijn_pagina():
+    return """
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <link rel="stylesheet" href="/static/css/style.css">
+        </head>
+        <body>
+            <h1>Mijn pagina</h1>
+            <p>Met eigen styling!</p>
+        </body>
+    </html>
+    """
+```
+
+</details>
+
+### Opdracht 5: Make - Twee CSS bestanden
 
 Maak twee CSS bestanden (`style1.css` en `style2.css`) met verschillende kleuren. Maak twee endpoints die elk een ander CSS bestand gebruiken.
+
+<details>
+<summary>Tip</summary>
+
+Maak twee bestanden in `static/css/`. Gebruik in het ene endpoint `href="/static/css/style1.css"` en in het andere `href="/static/css/style2.css"`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/css/style1.css`:
+```css
+h1 { color: red; }
+body { background-color: lightyellow; }
+```
+
+`static/css/style2.css`:
+```css
+h1 { color: green; }
+body { background-color: lightblue; }
+```
+
+```python
+@app.get("/rood", response_class=HTMLResponse)
+async def rood():
+    return """
+    <!DOCTYPE html>
+    <html>
+        <head><link rel="stylesheet" href="/static/css/style1.css"></head>
+        <body><h1>Rode pagina</h1></body>
+    </html>
+    """
+
+@app.get("/groen", response_class=HTMLResponse)
+async def groen():
+    return """
+    <!DOCTYPE html>
+    <html>
+        <head><link rel="stylesheet" href="/static/css/style2.css"></head>
+        <body><h1>Groene pagina</h1></body>
+    </html>
+    """
+```
+
+</details>

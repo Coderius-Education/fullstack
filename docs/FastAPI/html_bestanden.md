@@ -65,6 +65,10 @@ async def home():
 
 Ga naar [http://127.0.0.1:8000](http://127.0.0.1:8000). Je ziet de HTML pagina met CSS styling!
 
+:::danger Gaat er iets mis?
+Krijg je een 404 of 500 error? Check of het pad in `FileResponse("...")` exact klopt en of het bestand echt op die plek staat. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - Wat gebeurt er?
@@ -78,13 +82,35 @@ async def contact():
 **Vraag:** Wat gebeurt er als `contact.html` niet bestaat?
 
 <details>
-<summary>Klik hier voor het antwoord</summary>
+<summary>Tip</summary>
+
+FastAPI probeert het bestand te openen. Wat kan er misgaan als een bestand niet gevonden wordt?
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
 
 Je krijgt een error (500 Internal Server Error) omdat het bestand niet gevonden kan worden.
 
 </details>
 
-### Opdracht 2: Make - Twee pagina's
+### Opdracht 2: Run
+
+Maak de mappenstructuur uit het voorbeeld (`static/pages/home.html`), pas je `main.py` aan met `FileResponse`, en test of de pagina laadt.
+
+### Opdracht 3: Investigate - Fout pad
+
+Verander het pad in `FileResponse` naar een bestand dat niet bestaat, bijvoorbeeld `FileResponse("static/pages/oeps.html")`. Wat voor error krijg je?
+
+<details>
+<summary>Antwoord</summary>
+
+Je krijgt een **500 Internal Server Error** in de browser, en in de terminal zie je een foutmelding dat het bestand niet gevonden kan worden. Dit is een veelvoorkomende fout als je een typfout maakt in het pad.
+
+</details>
+
+### Opdracht 4: Make - Twee pagina's
 
 Maak twee HTML bestanden (`home.html` en `about.html`) met elk een eigen endpoint. Voeg op elke pagina een link naar de andere toe:
 
@@ -92,6 +118,92 @@ Maak twee HTML bestanden (`home.html` en `about.html`) met elk een eigen endpoin
 <a href="/about">Over Mij</a>
 ```
 
-### Opdracht 3: Make - Drie pagina's met navigatie
+<details>
+<summary>Tip</summary>
+
+Maak twee `.html` bestanden in `static/pages/` en twee endpoints in `main.py`. Vergeet niet dat de `href` verwijst naar het **endpoint**, niet naar het bestand.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/pages/home.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Home</h1>
+        <a href="/about">Over Mij</a>
+    </body>
+</html>
+```
+
+`static/pages/about.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Over Mij</h1>
+        <a href="/">Terug naar Home</a>
+    </body>
+</html>
+```
+
+```python
+@app.get("/")
+async def home():
+    return FileResponse("static/pages/home.html")
+
+@app.get("/about")
+async def about():
+    return FileResponse("static/pages/about.html")
+```
+
+</details>
+
+### Opdracht 5: Make - Drie pagina's met navigatie
 
 Maak drie pagina's (home, about, contact) die allemaal dezelfde CSS laden en links naar elkaar hebben.
+
+<details>
+<summary>Tip</summary>
+
+Maak drie `.html` bestanden die alle drie dezelfde `<link rel="stylesheet" href="/static/css/style.css">` bevatten. Zet op elke pagina links naar de andere twee met `<a href="/...">`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+Maak drie bestanden in `static/pages/` (home.html, about.html, contact.html) met elk:
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        <a href="/">Home</a> | <a href="/about">Over Mij</a> | <a href="/contact">Contact</a>
+        <h1>Home</h1>
+    </body>
+</html>
+```
+
+En drie endpoints in `main.py`:
+```python
+@app.get("/")
+async def home():
+    return FileResponse("static/pages/home.html")
+
+@app.get("/about")
+async def about():
+    return FileResponse("static/pages/about.html")
+
+@app.get("/contact")
+async def contact():
+    return FileResponse("static/pages/contact.html")
+```
+
+</details>

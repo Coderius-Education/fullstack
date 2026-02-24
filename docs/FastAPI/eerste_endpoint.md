@@ -41,7 +41,7 @@ Ga naar [http://127.0.0.1:8000](http://127.0.0.1:8000) in je browser. Je ziet:
 ```
 
 :::tip Wijzigingen niet zichtbaar?
-Je browser slaat pagina's op (caching). Als je iets aanpast en het verandert niet, druk dan op **Ctrl+Shift+R** om de pagina opnieuw te laden zonder cache.
+Je browser slaat pagina's op (caching). Als je iets aanpast en het verandert niet, druk dan op **Ctrl+Shift+R** om de pagina te herladen zonder cache.
 :::
 
 ## Meerdere endpoints
@@ -69,18 +69,98 @@ async def school():
 **Vraag:** Wat zie je als je naar `/school` gaat?
 
 <details>
-<summary>Klik hier voor het antwoord</summary>
+<summary>Tip</summary>
+
+Let op: de functie returnt een Python dictionary. Wat doet FastAPI standaard met een dictionary?
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
 
 ```json
 {"school": "Corderius", "vak": "Informatica"}
 ```
 
+FastAPI zet de dictionary automatisch om naar JSON.
+
 </details>
 
-### Opdracht 2: Make - Eigen endpoint
+### Opdracht 2: Run
+
+Voer de code hierboven uit. Voeg het `/school` endpoint toe aan je `main.py`, start de server, en ga naar `http://127.0.0.1:8000/school`. Zie je dezelfde output als het antwoord hierboven?
+
+### Opdracht 3: Investigate - Dubbele URL
+
+Wat gebeurt er als je twee endpoints met dezelfde URL maakt?
+
+```python
+@app.get("/test")
+async def test1():
+    return {"bericht": "Eerste"}
+
+@app.get("/test")
+async def test2():
+    return {"bericht": "Tweede"}
+```
+
+Probeer het uit! Welke van de twee zie je?
+
+<details>
+<summary>Antwoord</summary>
+
+Je ziet `{"bericht": "Eerste"}`. FastAPI gebruikt het **eerste** endpoint dat matcht. Het tweede wordt genegeerd.
+
+</details>
+
+### Opdracht 4: Make - Eigen endpoint
 
 Maak een endpoint `/hobby` dat jouw favoriete hobby teruggeeft als JSON.
 
-### Opdracht 3: Make - Meerdere endpoints
+<details>
+<summary>Tip</summary>
+
+Je hebt een `@app.get("/hobby")` nodig met een functie die een dictionary returnt, bijvoorbeeld `{"hobby": "voetbal"}`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+@app.get("/hobby")
+async def hobby():
+    return {"hobby": "voetbal"}
+```
+
+</details>
+
+### Opdracht 5: Make - Meerdere endpoints
 
 Maak drie endpoints: `/eten`, `/muziek`, en `/game` die elk jouw favorieten teruggeven.
+
+<details>
+<summary>Tip</summary>
+
+Maak voor elk endpoint een aparte functie met `@app.get(...)`. Elke functie heeft een unieke naam nodig.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+@app.get("/eten")
+async def eten():
+    return {"eten": "pizza"}
+
+@app.get("/muziek")
+async def muziek():
+    return {"muziek": "pop"}
+
+@app.get("/game")
+async def game():
+    return {"game": "Minecraft"}
+```
+
+</details>

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # GET vs POST
@@ -51,6 +51,10 @@ De data zit in de request body — niet zichtbaar in de URL.
 
 **Vuistregel:** GET = "Geef me iets" / POST = "Hier is iets"
 
+:::danger Gaat er iets mis?
+Krijg je een **405 Method Not Allowed**? Dan stuur je waarschijnlijk een POST naar een GET endpoint of andersom. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - GET of POST?
@@ -59,6 +63,13 @@ Wat gebruik je voor:
 1. Een pagina met zoekresultaten
 2. Een inlogformulier versturen
 3. Een foto tonen
+
+<details>
+<summary>Tip</summary>
+
+Denk aan de vuistregel: GET = "Geef me iets" (data ophalen), POST = "Hier is iets" (data versturen).
+
+</details>
 
 <details>
 <summary>Antwoord</summary>
@@ -80,3 +91,45 @@ async def groet(naam: str = "Bezoeker"):
 ```
 
 Test: `http://127.0.0.1:8000/groet?naam=Jan`
+
+### Opdracht 3: Investigate - POST via browser
+
+Wat gebeurt er als je `http://127.0.0.1:8000/verstuur` rechtstreeks in je browser typt?
+
+<details>
+<summary>Tip</summary>
+
+Als je een URL in je browser typt, stuurt de browser altijd een GET request. Wat is het endpoint type van `/verstuur`?
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+Je krijgt een **405 Method Not Allowed** error. De browser stuurt een GET request, maar `/verstuur` is een POST endpoint (`@app.post`). POST endpoints kun je alleen bereiken via formulieren of tools, niet door de URL in te typen.
+
+</details>
+
+### Opdracht 4: Make - Zoekfunctie
+
+Maak een GET endpoint `/zoek` dat een `term` parameter accepteert en een bericht teruggeeft: "Je zocht naar: [term]".
+
+<details>
+<summary>Tip</summary>
+
+Gebruik `@app.get("/zoek")` met een parameter `term: str`. De parameter wordt automatisch uit de URL gehaald (`/zoek?term=...`).
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+@app.get("/zoek")
+async def zoek(term: str):
+    return {"bericht": f"Je zocht naar: {term}"}
+```
+
+Test met: `http://127.0.0.1:8000/zoek?term=python`
+
+</details>

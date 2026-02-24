@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 # Afbeeldingen tonen
@@ -61,10 +61,14 @@ async def foto():
 
 Ga naar [http://127.0.0.1:8000/foto](http://127.0.0.1:8000/foto). Je ziet je afbeelding!
 
-**Werkt het niet?** Controleer of:
-1. De afbeelding écht in de `static` folder staat
+:::danger Gaat er iets mis?
+Afbeelding laadt niet? Controleer of:
+1. De afbeelding echt in de `static` folder staat
 2. De bestandsnaam exact klopt (let op hoofdletters!)
 3. `app.mount("/static", ...)` in je code staat
+
+Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
 
 ## Opdrachten
 
@@ -77,16 +81,101 @@ Ga naar [http://127.0.0.1:8000/foto](http://127.0.0.1:8000/foto). Je ziet je afb
 **Vraag:** Wat zie je als `logo.png` niet bestaat in de static folder?
 
 <details>
-<summary>Klik hier voor het antwoord</summary>
+<summary>Tip</summary>
+
+De browser kan de afbeelding niet laden. Waarvoor is het `alt` attribuut bedoeld?
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
 
 Je ziet de alt tekst "Logo" en een broken image icoon. De pagina laadt wel, maar de afbeelding niet.
 
 </details>
 
-### Opdracht 2: Make - Eigen foto
+### Opdracht 2: Run
+
+Plaats een afbeelding in je `static` folder, maak het `foto.html` bestand uit het voorbeeld, en test of de afbeelding wordt getoond.
+
+### Opdracht 3: Investigate - Zonder alt
+
+Wat zie je als je het `alt` attribuut weglaat en het bestand niet bestaat? Probeer het uit!
+
+```html
+<img src="/static/bestaat_niet.jpg">
+```
+
+<details>
+<summary>Antwoord</summary>
+
+Je ziet alleen een broken image icoon zonder tekst. Met `alt` zie je tenminste nog een beschrijving van wat er had moeten staan. Daarom is `alt` altijd handig om toe te voegen.
+
+</details>
+
+### Opdracht 4: Make - Eigen foto
 
 Plaats een afbeelding in je `static` folder en maak een pagina die hem toont.
 
-### Opdracht 3: Make - Fotogalerij
+<details>
+<summary>Tip</summary>
+
+Zet een `.jpg` of `.png` bestand in `static/` en verwijs ernaar met `<img src="/static/jouw_bestand.jpg" alt="Beschrijving">`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/pages/mijn_foto.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Mijn foto</h1>
+        <img src="/static/mijn_foto.jpg" alt="Mijn favoriete foto">
+    </body>
+</html>
+```
+
+```python
+@app.get("/mijn_foto")
+async def mijn_foto():
+    return FileResponse("static/pages/mijn_foto.html")
+```
+
+</details>
+
+### Opdracht 5: Make - Fotogalerij
 
 Maak een pagina met drie afbeeldingen onder elkaar. Geef elke afbeelding een titel met een `<h3>` tag erboven.
+
+<details>
+<summary>Tip</summary>
+
+Zet drie afbeeldingen in je `static` folder. Gebruik voor elke foto een `<h3>` gevolgd door een `<img>` tag.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Mijn Fotogalerij</h1>
+
+        <h3>Foto 1</h3>
+        <img src="/static/foto1.jpg" alt="Eerste foto">
+
+        <h3>Foto 2</h3>
+        <img src="/static/foto2.jpg" alt="Tweede foto">
+
+        <h3>Foto 3</h3>
+        <img src="/static/foto3.jpg" alt="Derde foto">
+    </body>
+</html>
+```
+
+</details>

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # POST met templates
@@ -82,6 +82,23 @@ async def groet_verwerk(request: Request, naam: str = Form(...)):
 - `"request": request` — Moet altijd mee!
 - `{{ naam }}` — Wordt in de template vervangen door de waarde
 
+<details>
+<summary>Waarom moet "request" altijd mee?</summary>
+
+Jinja2 in FastAPI heeft het `request` object nodig om te weten welke gebruiker de pagina opvraagt. Zonder `"request": request` in het dictionary krijg je een **TypeError**. Dit is een vereiste van het framework — vergeet het niet!
+
+</details>
+
+## Testen
+
+1. Ga naar `http://127.0.0.1:8000/groet`
+2. Vul je naam in en klik Verstuur
+3. Je ziet een mooie HTML pagina: "Hallo [jouw naam]!"
+
+:::danger Gaat er iets mis?
+Krijg je een **TemplateNotFound** error? Check of je template in de `templates/` folder staat en of de bestandsnaam klopt. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - Wat zie je?
@@ -102,6 +119,13 @@ return templates.TemplateResponse("welkom.html", {
 **Vraag:** Wat zie je op de pagina?
 
 <details>
+<summary>Tip</summary>
+
+De `{{ }}` variabelen worden vervangen door de waarden uit het Python dictionary. Welke waarden staan er voor `naam` en `leeftijd`?
+
+</details>
+
+<details>
 <summary>Antwoord</summary>
 
 ```
@@ -111,10 +135,112 @@ Leeftijd: 16
 
 </details>
 
-### Opdracht 2: Make - Favoriete eten
+### Opdracht 2: Run
+
+Maak het formulier, de template en de endpoints uit het voorbeeld. Test of het werkt door een naam in te vullen.
+
+### Opdracht 3: Investigate - Request vergeten
+
+Wat gebeurt er als je `"request": request` weghaalt uit het dictionary? Probeer het:
+
+```python
+return templates.TemplateResponse("groet_resultaat.html", {"naam": naam})
+```
+
+<details>
+<summary>Antwoord</summary>
+
+Je krijgt een **TypeError: context must include a "request" key**. FastAPI/Jinja2 vereist altijd dat het request object wordt meegegeven.
+
+</details>
+
+### Opdracht 4: Make - Favoriete eten
 
 Maak een formulier voor je favoriete eten. Na versturen toont een template: "Jouw favoriete eten is: [eten]"
 
-### Opdracht 3: Make - Profiel pagina
+<details>
+<summary>Tip</summary>
+
+Je hebt nodig: een HTML formulier met `name="eten"`, een template met `{{ eten }}`, en een POST endpoint dat `TemplateResponse` teruggeeft met `{"request": request, "eten": eten}`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`static/pages/eten_form.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Favoriete eten</h1>
+        <form method="post" action="/eten">
+            <input type="text" name="eten" required>
+            <button type="submit">Verstuur</button>
+        </form>
+    </body>
+</html>
+```
+
+`templates/eten_resultaat.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Jouw favoriete eten is: {{ eten }}</h1>
+        <a href="/eten">Terug</a>
+    </body>
+</html>
+```
+
+```python
+@app.get("/eten")
+async def eten_form():
+    return FileResponse("static/pages/eten_form.html")
+
+@app.post("/eten")
+async def eten_verwerk(request: Request, eten: str = Form(...)):
+    return templates.TemplateResponse(
+        "eten_resultaat.html",
+        {"request": request, "eten": eten}
+    )
+```
+
+</details>
+
+### Opdracht 5: Make - Profiel pagina
 
 Maak een formulier met naam, leeftijd en hobby. Na versturen toont een template alle drie de waarden.
+
+<details>
+<summary>Tip</summary>
+
+Je hebt drie `<input>` velden nodig, drie `Form(...)` parameters, en drie `{{ }}` variabelen in je template. Vergeet niet alle drie de waarden in het context dictionary te zetten.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+`templates/profiel.html`:
+```html
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Profiel van {{ naam }}</h1>
+        <p>Leeftijd: {{ leeftijd }}</p>
+        <p>Hobby: {{ hobby }}</p>
+    </body>
+</html>
+```
+
+```python
+@app.post("/profiel")
+async def profiel(request: Request, naam: str = Form(...), leeftijd: int = Form(...), hobby: str = Form(...)):
+    return templates.TemplateResponse(
+        "profiel.html",
+        {"request": request, "naam": naam, "leeftijd": leeftijd, "hobby": hobby}
+    )
+```
+
+</details>

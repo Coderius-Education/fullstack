@@ -1,5 +1,5 @@
 ---
-sidebar_position: 10
+sidebar_position: 11
 ---
 
 # Gegevens opslaan
@@ -57,6 +57,17 @@ with SqliteDict("data.db") as db:
         print("Bestaat!")
 ```
 
+<details>
+<summary>Waarom is db.commit() nodig?</summary>
+
+Een database slaat wijzigingen niet meteen op in het bestand. Met `db.commit()` zeg je: "Sla nu alles echt op." Als je dit vergeet, staan je wijzigingen alleen in het geheugen en verdwijnen ze als het programma stopt. Vergelijk het met een Word-document: je moet op "Opslaan" klikken, anders ben je je werk kwijt.
+
+</details>
+
+:::danger Gaat er iets mis?
+Data verdwenen na herstarten? Dan ben je waarschijnlijk `db.commit()` vergeten. Bekijk de [troubleshooting pagina](/troubleshooting) voor meer oplossingen.
+:::
+
 ## Opdrachten
 
 ### Opdracht 1: Predict - Wat gebeurt er?
@@ -73,15 +84,47 @@ with SqliteDict("test.db") as db:
 **Vraag:** Wat print dit?
 
 <details>
+<summary>Tip</summary>
+
+De data wordt opgeslagen met `commit()`. Daarna wordt het bestand opnieuw geopend. Blijft de data bewaard in het bestand?
+
+</details>
+
+<details>
 <summary>Antwoord</summary>
 
-`100` — De data blijft bewaard in het bestand.
+`100` — De data blijft bewaard in het bestand dankzij `db.commit()`.
 
 </details>
 
 ### Opdracht 2: Run - Eerste database
 
-Maak een programma dat een contact opslaat (naam + telefoonnummer) en het weer uitleest.
+Maak een programma dat een contact opslaat (naam + telefoonnummer) en het weer uitleest. Werkt het?
+
+<details>
+<summary>Tip</summary>
+
+Sla twee waarden op met verschillende keys, bijvoorbeeld `db["naam"] = "Jan"` en `db["telefoon"] = "0612345678"`. Vergeet `db.commit()` niet!
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+from sqlitedict import SqliteDict
+
+with SqliteDict("contacten.db") as db:
+    db["naam"] = "Jan"
+    db["telefoon"] = "0612345678"
+    db.commit()
+
+with SqliteDict("contacten.db") as db:
+    print(f"Naam: {db['naam']}")
+    print(f"Telefoon: {db['telefoon']}")
+```
+
+</details>
 
 ### Opdracht 3: Investigate - Commit vergeten
 
@@ -90,6 +133,36 @@ Wat gebeurt er als je `db.commit()` vergeet? Probeer het uit!
 <details>
 <summary>Antwoord</summary>
 
-De data wordt **niet** opgeslagen. Na herstarten is het weg.
+De data wordt **niet** opgeslagen. Na herstarten is het weg. Zonder `commit()` staan de wijzigingen alleen in het geheugen.
+
+</details>
+
+### Opdracht 4: Make - Favorieten opslaan
+
+Maak een programma dat drie favorieten opslaat (eten, muziek, game) en ze daarna weer uitleest.
+
+<details>
+<summary>Tip</summary>
+
+Gebruik drie keys: `db["eten"]`, `db["muziek"]`, `db["game"]`. Sla alles op met één `db.commit()` aan het eind.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```python
+from sqlitedict import SqliteDict
+
+with SqliteDict("favorieten.db") as db:
+    db["eten"] = "pizza"
+    db["muziek"] = "pop"
+    db["game"] = "Minecraft"
+    db.commit()
+
+with SqliteDict("favorieten.db") as db:
+    for key, value in db.items():
+        print(f"{key}: {value}")
+```
 
 </details>
