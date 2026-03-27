@@ -2,6 +2,8 @@
 sidebar_position: 4
 ---
 
+import HtmlCssJsEditor from '@site/src/components/HtmlCssJsEditor';
+
 # Elementen selecteren
 
 In de vorige les gebruikte je `alert()` om tekst te tonen. In deze les leer je hoe je elementen op je pagina kunt veranderen met JavaScript.
@@ -173,3 +175,12 @@ Maak een variabele `let naam = "Jan"` en gebruik string-concatenatie (`+`) om de
 ```
 
 </details>
+
+## Probeer het zelf
+
+<HtmlCssJsEditor
+  title="Elementen selecteren"
+  defaultHtml={'<h1 id="titel">Oude titel</h1>\n<p id="tekst">Oude tekst</p>\n<p id="bericht">Wachten...</p>'}
+  defaultCss={'body { font-family: sans-serif; padding: 20px; }'}
+  defaultJs={'document.getElementById("titel").innerHTML = "Nieuwe titel!";\ndocument.getElementById("tekst").innerHTML = "Deze tekst is veranderd.";\ndocument.getElementById("bericht").innerHTML = "Klaar!";'}
+/>

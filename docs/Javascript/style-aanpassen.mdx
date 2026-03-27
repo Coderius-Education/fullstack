@@ -2,6 +2,8 @@
 sidebar_position: 5
 ---
 
+import HtmlCssJsEditor from '@site/src/components/HtmlCssJsEditor';
+
 # Style aanpassen
 
 In de vorige les veranderde je de inhoud van elementen. In deze les leer je hoe je de **stijl** (CSS) van elementen verandert met JavaScript.
@@ -183,3 +185,12 @@ Maak een pagina met een paragraaf die via JavaScript onzichtbaar wordt gemaakt. 
 Het geheime bericht verdwijnt volledig van de pagina.
 
 </details>
+
+## Probeer het zelf
+
+<HtmlCssJsEditor
+  title="Style aanpassen met JavaScript"
+  defaultHtml={'<h1 id="titel">Hallo!</h1>\n<p id="tekst">Dit is een paragraaf.</p>\n<p id="extra">Meer tekst hier.</p>'}
+  defaultCss={'body { font-family: sans-serif; padding: 20px; }'}
+  defaultJs={'document.getElementById("titel").style.color = "blue";\ndocument.getElementById("tekst").style.fontSize = "24px";\ndocument.getElementById("extra").style.backgroundColor = "lightyellow";\ndocument.getElementById("extra").style.borderRadius = "8px";'}
+/>

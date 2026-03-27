@@ -2,6 +2,8 @@
 sidebar_position: 3
 ---
 
+import HtmlCssJsEditor from '@site/src/components/HtmlCssJsEditor';
+
 # Hello World
 
 In deze les voeg je voor het eerst JavaScript toe aan een HTML pagina.
@@ -179,3 +181,12 @@ Maak variabelen voor de twee getallen en bereken het resultaat: `let resultaat =
 ```
 
 </details>
+
+## Probeer het zelf
+
+<HtmlCssJsEditor
+  title="Hello World in JavaScript"
+  defaultHtml={'<h1 id="titel">Hallo!</h1>\n<button id="btn">Klik mij</button>'}
+  defaultCss={'body { font-family: sans-serif; padding: 20px; }'}
+  defaultJs={'document.getElementById("btn").addEventListener("click", function() {\n  alert("Hello World!");\n});'}
+/>

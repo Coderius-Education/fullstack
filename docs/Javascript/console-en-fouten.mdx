@@ -2,6 +2,8 @@
 sidebar_position: 6
 ---
 
+import HtmlCssJsEditor from '@site/src/components/HtmlCssJsEditor';
+
 # Console en fouten
 
 In deze les leer je de browser console gebruiken om fouten op te sporen en je code te debuggen.
@@ -231,3 +233,12 @@ document.getElementById("bericht").style.color = "blue";
 ```
 
 </details>
+
+## Probeer het zelf
+
+<HtmlCssJsEditor
+  title="Console en fouten opsporen"
+  defaultHtml={'<h1 id="titel">Hallo</h1>\n<p id="bericht">Wachten...</p>'}
+  defaultCss={'body { font-family: sans-serif; padding: 20px; }'}
+  defaultJs={'let naam = "Jan";\nconsole.log("De naam is: " + naam);\n\ndocument.getElementById("titel").innerHTML = "Welkom, " + naam + "!";\ndocument.getElementById("bericht").innerHTML = naam + " is ingelogd.";\n\nconsole.log("Titel en bericht zijn veranderd!");'}
+/>

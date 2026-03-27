@@ -2,6 +2,8 @@
 sidebar_position: 7
 ---
 
+import HtmlCssJsEditor from '@site/src/components/HtmlCssJsEditor';
+
 # Klikken op een knop
 
 Tot nu toe draait je JavaScript automatisch als de pagina laadt. In deze les leer je hoe je code uitvoert **als een gebruiker op een knop klikt**.
@@ -200,3 +202,12 @@ Gebruik `style.display = "none"` om te verbergen en `style.display = "block"` om
 ```
 
 </details>
+
+## Probeer het zelf
+
+<HtmlCssJsEditor
+  title="Klikken op een knop"
+  defaultHtml={'<h1 id="titel">Klik-teller</h1>\n<p id="teller">Aantal: 0</p>\n<button id="plus">+1</button>\n<button id="reset">Reset</button>\n<button id="kleur">Verander kleur</button>'}
+  defaultCss={'body { font-family: sans-serif; padding: 20px; }\nbutton { padding: 8px 16px; margin: 4px; cursor: pointer; border-radius: 4px; }'}
+  defaultJs={'let aantal = 0;\n\ndocument.getElementById("plus").addEventListener("click", function() {\n  aantal = aantal + 1;\n  document.getElementById("teller").innerHTML = "Aantal: " + aantal;\n});\n\ndocument.getElementById("reset").addEventListener("click", function() {\n  aantal = 0;\n  document.getElementById("teller").innerHTML = "Aantal: " + aantal;\n});\n\ndocument.getElementById("kleur").addEventListener("click", function() {\n  document.body.style.backgroundColor = "lightblue";\n});'}
+/>
