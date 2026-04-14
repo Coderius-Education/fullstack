@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'coderius-fullstack',
-  tagline: 'Leer hier een back-end toe te voegen aan je website',
+  title: 'Fullstack Ontwikkeling — FastAPI — Coderius',
+  tagline: 'Leer hier een Python back-end toe te voegen aan je website',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://fullstack.coderius.nl',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -23,7 +23,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Coderius-Education', // Usually your GitHub org/user name.
-  projectName: 'fullstack', // Usually your repo name.
+  projectName: 'fullstack-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -31,9 +31,26 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'nl',
+    locales: ['nl'],
   },
+
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'description',
+        content: 'Leer een back-end bouwen met FastAPI (Python). Van frontend naar database, direct in je browser.',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'keywords',
+        content: 'fastapi leren, fullstack python, backend leren beginners, sqlite database python',
+      },
+    },
+  ],
 
   presets: [
     [
@@ -46,19 +63,7 @@ const config: Config = {
           editUrl:
             'https://github.com/Coderius-Education/fullstack/tree/main/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          editUrl:
-            'https://github.com/Coderius-Education/fullstack/tree/main/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -79,12 +84,7 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'guidesSidebar',
-          position: 'left',
-          label: 'Javascript',
-        },
+
         {
           type: 'docSidebar',
           sidebarId: 'apiSidebar',
@@ -113,6 +113,14 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [
+        {
+          title: 'Meer van Coderius',
+          items: [
+            { label: 'Leer eerst Python', href: 'https://python.coderius.nl' },
+            { label: 'Leer HTML & CSS', href: 'https://web.coderius.nl' },
+            { label: 'Web security met DVWA', href: 'https://dvwa.coderius.nl' },
+          ],
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Coderius Education, Inc. Built with Docusaurus.`,
     },
