@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Fullstack Ontwikkeling — JavaScript & FastAPI — Coderius',
-  tagline: 'Leer hier een back-end toe te voegen aan je website',
+  title: 'Fullstack Ontwikkeling — FastAPI — Coderius',
+  tagline: 'Leer hier een Python back-end toe te voegen aan je website',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -40,14 +40,14 @@ const config: Config = {
       tagName: 'meta',
       attributes: {
         name: 'description',
-        content: 'Leer een back-end bouwen met FastAPI (Python) en JavaScript. Van frontend naar database, direct in je browser.',
+        content: 'Leer een back-end bouwen met FastAPI (Python). Van frontend naar database, direct in je browser.',
       },
     },
     {
       tagName: 'meta',
       attributes: {
         name: 'keywords',
-        content: 'fastapi leren, javascript dom leren, fullstack python, backend leren beginners, sqlite database python',
+        content: 'fastapi leren, fullstack python, backend leren beginners, sqlite database python',
       },
     },
   ],
@@ -84,12 +84,7 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'guidesSidebar',
-          position: 'left',
-          label: 'Javascript',
-        },
+
         {
           type: 'docSidebar',
           sidebarId: 'apiSidebar',
